@@ -1,4 +1,4 @@
-# Title: NFT Marketplace with APIs on Algorand Blockchain
+# Title : NFT Marketplace with APIs on Algorand Blockchain
 
 # 1. Introduction
 NFT marketplaces enable digital ownership of assets, but current platforms often present integration challenges due to complexity, high fees, and lack of developer-friendly tools. Our solution streamlines this process by providing an API-driven NFT marketplace on Algorand, ensuring simplicity, security, and efficiency.
