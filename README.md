@@ -1,58 +1,170 @@
-# Title : NFT Marketplace with APIs on Algorand Blockchain
+# 🧱 Algoverse (Algorand NFT Marketplace & Listing SDK)
 
-# 1. Introduction
-NFT marketplaces enable digital ownership of assets, but current platforms often present integration challenges due to complexity, high fees, and lack of developer-friendly tools. Our solution streamlines this process by providing an API-driven NFT marketplace on Algorand, ensuring simplicity, security, and efficiency.
+A developer-friendly TypeScript SDK that enables creators and builders to **mint**, **list**, and **sell NFTs** on the **Algorand blockchain** using Layer-1 primitives (ASAs, smart contracts, and atomic transfers). 
 
-# 2. Problem Statement
-Many NFT marketplaces have:
-Complex integrations: Developers struggle to incorporate NFT features into their applications.
-High transaction costs: Gas fees on traditional blockchains can be expensive.
-Security concerns: Fraud, double-spending, and lack of escrow mechanisms.
-Scalability issues: Slow transaction speeds hinder real-time trading.
+This SDK abstracts away the blockchain complexity and lets developers integrate NFT marketplace logic into any frontend with simple function calls — no deep blockchain knowledge needed.
 
-# 3. Solution Overview
-Our NFT marketplace addresses these challenges with:
-Developer-friendly APIs: Simplifies NFT transactions like listing, selling, and buying.
-Algorand Standard Asset (ASA) integration: Ensures efficient, standardized NFT management.
-Secure, low-cost smart contracts: Leverages Algorand’s Layer-1 capabilities.
-Scalable architecture: Designed for high throughput and seamless user experience.
+---
 
-# 4. Key Features
-4.1 API Capabilities
-NFT Listing API: Enables users to create and list NFTs with metadata.
-NFT Purchase API: Allows secure NFT purchases using Algorand tokens.
-NFT Transfer API: Facilitates ownership transfers with cryptographic verification.
-Marketplace Data API: Provides real-time listing, transaction, and ownership details.
+## 🧩 Key Features
 
-4.2 Smart Contract Integration
-Atomic swaps: Ensures trustless NFT transactions.
-Escrow mechanism: Protects buyers and sellers from fraudulent transactions.
-Smart contract validation: Confirms asset authenticity before finalizing trades.
-Fractional ownership support: Allows multiple stakeholders to own NFT shares.
+- 🔷 **Create NFTs (ASAs)** with ARC-3 or ARC-69 metadata  
+- 🧾 **Deploy marketplace smart contracts** (stateful ASC1 + stateless escrow logic)
+- 🛍️ **List NFTs for sale** by escrowing them into secure logic signature accounts  
+- 🤝 **Buy NFTs** using atomic groups of Algos + asset transfers  
+- 🔐 **Supports wallet integrations** (Pera Wallet, WalletConnect — BYO Wallet UX)  
+- 🧪 **Built-in testing support** using AlgoKit LocalNet and TypeScript-based testing tools
 
-4.3 Security & Scalability
-Algorand’s high-speed transactions: Ensures real-time trading with minimal fees.
-API authentication & encryption: Safeguards user interactions.
-On-chain verification: Guarantees complete transparency in ownership and trade history.
+---
 
-4.4 Developer Documentation
-Comprehensive API guides: Step-by-step integration process.
-Sample request-response templates: Speeds up adoption.
-Open-source SDKs: Available in Python and TypeScript for easy implementation.
+## 🧠 Project Architecture
 
-# 5. Testing Framework
-Unit testing for smart contracts: Ensures contract integrity.
-Predefined test cases: Covers NFT creation, transfers, and purchases.
-Automated validation scripts: Streamlines contract deployment and bug detection.
+```
+algorand-nft-listing-sdk/
+├── contracts/     # Smart contract source code (TS or TEAL)
+├── src/           # TypeScript SDK modules (AssetService, MarketplaceService, etc.)
+├── example-frontend/ # Demo frontend app (React/Next.js + Wallet integration)
+├── test/          # Unit and integration tests
+├── scripts/       # Deploy/compile scripts
+└── README.md      # You're here
+```
 
-# 6. Impact
-Simplifies NFT adoption for developers.
-Enhances transaction security and efficiency.
-Reduces costs compared to traditional NFT platforms.
-Encourages wider adoption through well-documented APIs.
+---
 
-# 7. Conclusion
-By leveraging Algorand’s fast, low-cost, and secure blockchain, our NFT marketplace enables seamless trading, simplifies integration, and ensures scalability. With developer-friendly APIs and a robust smart contract framework, we provide a cutting-edge solution for digital asset management.
-8. References
-Algorand Developer Docs: https://developer.algorand.org/
-Hackathon Details: https://algobharat.in/hack-series/
+## ⚙️ How It Works
+
+### 🔨 1. **Create an NFT (ASA)**  
+Creates an Algorand Standard Asset with:
+- Total supply = 1  
+- Metadata from ARC-3 / ARC-69  
+- `clawback` and `freeze` set to escrow logic sig  
+
+### 🧾 2. **Deploy a marketplace contract (stateful)**  
+Stores:
+- NFT ASA ID  
+- Listing price  
+- Seller address  
+- Status (`active`, `cancelled`, etc.)
+
+### 🛡️ 3. **Generate escrow contract (stateless)**  
+This logic sig:
+- Controls the NFT via clawback/freeze  
+- Only allows transfers as part of an atomic purchase group  
+
+### 💰 4. **List an NFT for sale**  
+Seller locks the NFT in escrow and sets price via app call  
+The NFT is now securely listed
+
+### 🛒 5. **Buy NFT using an atomic group**  
+Buyer signs and submits:
+- App call to `buy_nft`  
+- Payment transaction to seller  
+- ASA transfer from escrow logic sig  
+✅ All must succeed, or none do
+
+---
+
+## 🚀 Quick Start
+
+### 1️⃣ Prerequisites
+
+- Node.js (v18+)
+- AlgoKit CLI (https://github.com/algorandfoundation/algokit-cli)
+- Docker (for running localnet)
+- Git
+
+### 2️⃣ Install dependencies
+
+```bash
+git clone https://github.com/your-org/algorand-nft-listing-sdk.git
+cd algorand-nft-listing-sdk
+npm install
+```
+
+### 3️⃣ Start local Algorand node
+
+```bash
+algokit localnet start
+```
+
+### 4️⃣ Run the dev frontend
+
+```bash
+cd example-frontend
+npm install
+npm run dev
+```
+
+## 🧪 Testing the SDK
+
+Run unit tests:
+
+```bash
+npm run test
+```
+
+Testnet or mainnet can be used by configuring algodClient in config.ts.
+
+## 🧰 SDK Usage Example
+
+```typescript
+import { AssetService, MarketplaceService } from 'algorand-nft-listing-sdk';
+
+// Create an NFT
+const asaId = await AssetService.createNFT({
+  creatorAddr: myAddress,
+  metadataURL: 'ipfs://Qm...',
+  name: 'FounderNFT',
+  unitName: 'FNDR',
+  decimals: 0,
+});
+
+// Deploy smart contracts
+const appId = await MarketplaceService.deployMarketplace({ asaId });
+
+// List NFT for sale
+await MarketplaceService.makeSellOffer({
+  appId,
+  price: 1_000_000, // in microAlgos
+  sellerAddr: myAddress,
+});
+
+// Generate buy group
+const txns = await MarketplaceService.buyNFT({ appId, buyerAddr: buyer });
+
+// Sign & send via your wallet
+await wallet.signAndSend(txns);
+```
+
+## 🧠 Concepts
+
+| Concept | Description |
+|---------|-------------|
+| ASA | Native Algorand token used as NFT (1 supply, 0 decimals) |
+| Stateful App | Holds listing info and validates offers |
+| Stateless TEAL | Escrow logic that secures NFT transfer |
+| Atomic Transfer | Ensures Algos and NFT change hands together |
+
+## 🌐 Wallet Integration
+
+We support unsigned transaction generation, so you can use:
+
+- Pera Wallet
+- WalletConnect
+- MyAlgo Connect
+
+Example wallet code available in example-frontend/.
+
+## 📄 Standards Followed
+
+✅ ARC-3 / ARC-69 (NFT metadata)
+
+✅ TEAL v6+ stateless programs
+
+✅ Atomic transfer groups
+
+✅ Algorand Smart Contract ABI
+
+Originally created for Algorand Hack-Series, 2025.
+
+*Coming soon: Mint NFT, List for Sale, Buy Flow screenshots*
