@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
@@ -27,6 +27,97 @@ const nftItems = [
 const categories = ["All Categories", "Art", "Collectible", "Photography", "Animation", "Music", "Virtual Worlds"];
 const sortOptions = ["Recently Added", "Price: Low to High", "Price: High to Low", "Most Popular"];
 
+const Explore: NextPage = () => {
+  const [viewMode, setViewMode] = useState<"grid" | "list">("list");
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000]);
+  const [selectedCategory, setSelectedCategory] = useState<string>("All Categories");
+  const [sortOption, setSortOption] = useState<string>("Recently Added");
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [nftItems, setNftItems] = useState<NFTItem[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+  const [page, setPage] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState<number>(1);
+  const [perPage, setPerPage] = useState<number>(12);
+  const [currentPageItems, setCurrentPageItems] = useState<NFTItem[]>([]);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [totalItems, setTotalItems] = useState<number>(0);
+  const [isLoadingMore, setIsLoadingMore] = useState<boolean>(false);
+
+  useEffect(() => {
+    setLoading(true);
+    setError(null);
+    setNftItems([]);
+    setCurrentPageItems([]);
+    setCurrentPage(1);
+    setTotalPages(1);
+    setTotalItems(0);
+    setIsLoadingMore(false);
+
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          `https://api.nftport.xyz/v0/nfts/algorand/${process.env.NEXT_PUBLIC_ALGOVERSE_APP_ID}?creator=${process.env.NEXT_PUBLIC_ALGOVERSE_CREATOR}&chain=algorand&sort=${sortOption}&page=${page}&per_page=${perPage}&search=${searchTerm}`
+        );
+        const data = await response.json();
+
+        if (data.error) {
+          setError(data.error);
+          setLoading(false);
+          return;
+        }
+
+        setNftItems(data.nfts);
+        setTotalPages(data.total_pages);
+        setTotalItems(data.total);
+        setLoading(false);
+      } catch (error) {
+        setError(error as string);
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [page, perPage, searchTerm, sortOption]);
+
+  useEffect(() => {
+    if (currentPage > totalPages) {
+      setIsLoadingMore(false);
+      return;
+    }
+
+    setIsLoadingMore(true);
+
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          `https://api.nftport.xyz/v0/nfts/algorand/${process.env.NEXT_PUBLIC_ALGOVERSE_APP_ID}?creator=${process.env.NEXT_PUBLIC_ALGOVERSE_CREATOR}&chain=algorand&sort=${sortOption}&page=${currentPage}&per_page=${perPage}&search=${searchTerm}`
+        );
+        const data = await response.json();
+
+        if (data.error) {
+          setError(data.error);
+          setIsLoadingMore(false);
+          return;
+        }
+
+        setCurrentPageItems(data.nfts);
+        setCurrentPage(currentPage + 1);
+        setIsLoadingMore(false);
+      } catch (error) {
+        setError(error as string);
+        setIsLoadingMore(false);
+      }
+    };
+
+    fetchData();
+  }, [currentPage, perPage, searchTerm, sortOption]);
+
+  const handleSortOptionChange = (option: string) => {
+    setSortOption(option);
+    setPage(1);
+  };
+
 const Explore = () => {
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [priceRange, setPriceRange] = useState<number[]>([0, 1000]);
@@ -43,8 +134,8 @@ const Explore = () => {
               <h3 className="text-lg font-semibold mb-3">Filters</h3>
               <div className="relative">
                 <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-                <Input 
-                  placeholder="Search NFTs" 
+                <Input
+                  placeholder="Search NFTs"
                   className="pl-9 bg-background"
                 />
               </div>
@@ -54,7 +145,7 @@ const Explore = () => {
               <h4 className="font-medium mb-2">Category</h4>
               <div className="space-y-1">
                 {categories.map((category, index) => (
-                  <Button 
+                  <Button
                     key={index}
                     variant={selectedCategory === category ? "default" : "ghost"}
                     className={`justify-start w-full ${selectedCategory === category ? "" : "text-muted-foreground"}`}
@@ -69,9 +160,9 @@ const Explore = () => {
             <div>
               <h4 className="font-medium mb-2">Price Range</h4>
               <div className="px-2">
-                <Slider 
-                  defaultValue={[0, 1000]} 
-                  max={1000} 
+                <Slider
+                  defaultValue={[0, 1000]}
+                  max={1000}
                   step={10}
                   value={priceRange}
                   onValueChange={(value) => setPriceRange(value)}
@@ -115,15 +206,15 @@ const Explore = () => {
                   </select>
                 </Select>
                 <div className="flex border border-border rounded-md overflow-hidden">
-                  <Button 
-                    variant={viewMode === "grid" ? "secondary" : "ghost"} 
+                  <Button
+                    variant={viewMode === "grid" ? "secondary" : "ghost"}
                     size="icon"
                     onClick={() => setViewMode("grid")}
                   >
                     <Grid3X3 className="h-4 w-4" />
                   </Button>
-                  <Button 
-                    variant={viewMode === "list" ? "secondary" : "ghost"} 
+                  <Button
+                    variant={viewMode === "list" ? "secondary" : "ghost"}
                     size="icon"
                     onClick={() => setViewMode("list")}
                   >
@@ -135,7 +226,7 @@ const Explore = () => {
 
             <div className={`grid ${viewMode === 'grid' ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'} gap-6`}>
               {nftItems.map((nft) => (
-                <NFTCard 
+                <NFTCard
                   key={nft.id}
                   id={nft.id.toString()}
                   name={nft.title}
