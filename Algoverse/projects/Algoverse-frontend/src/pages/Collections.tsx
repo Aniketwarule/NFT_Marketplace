@@ -8,6 +8,80 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Link } from "react-router-dom";
 
 // Sample collection data
+const collections = [
+  {
+    id: 1,
+    name: "Algorithmic Dreams",
+    creator: "CryptoVisionary",
+    items: 42,
+    floorPrice: "89",
+    volume: "12.5K",
+    logo: "/placeholder.svg",
+    banner: "/placeholder.svg",
+    verified: true,
+    category: "Art"
+  },
+  {
+    id: 2,
+    name: "Pixel Punks",
+    creator: "PixelMaster",
+    items: 112,
+    floorPrice: "45",
+    volume: "8.2K",
+    logo: "/placeholder.svg",
+    banner: "/placeholder.svg",
+    verified: true,
+    category: "Collectible"
+  },
+  {
+    id: 3,
+    name: "Digital Horizons",
+    creator: "FutureForm",
+    items: 28,
+    floorPrice: "120",
+    volume: "5.7K",
+    logo: "/placeholder.svg",
+    banner: "/placeholder.svg",
+    verified: false,
+    category: "Photography"
+  },
+  {
+    id: 4,
+    name: "Quantum Art Gallery",
+    creator: "QuantumArtist",
+    items: 76,
+    floorPrice: "67",
+    volume: "9.3K",
+    logo: "/placeholder.svg",
+    banner: "/placeholder.svg",
+    verified: true,
+    category: "Art"
+  },
+  {
+    id: 5,
+    name: "Neo Genesis",
+    creator: "TechnoCreator",
+    items: 53,
+    floorPrice: "98",
+    volume: "14.2K",
+    logo: "/placeholder.svg",
+    banner: "/placeholder.svg",
+    verified: true,
+    category: "Animation"
+  },
+  {
+    id: 6,
+    name: "Cyber Relic Archive",
+    creator: "FuturePunk",
+    items: 35,
+    floorPrice: "75",
+    volume: "7.8K",
+    logo: "/placeholder.svg",
+    banner: "/placeholder.svg",
+    verified: false,
+    category: "Collectible"
+  }
+];
 
 const categories = ["All", "Art", "Collectible", "Photography", "Animation", "Music", "Virtual Worlds"];
 
