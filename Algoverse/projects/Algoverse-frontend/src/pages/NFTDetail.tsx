@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -60,10 +60,38 @@ const similarNFTs = [
   { id: "45", title: "Cosmic Reflections", creator: "NeoArtist", price: "175", likes: 32, image: "/placeholder.svg" }
 ];
 
+const NFTDetail: NextPage = () => {
+  const { id } = useParams<{ id: string }>();
+  const [nftData, setNftData] = useState<NFTItem>({} as NFTItem);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    setLoading(true);
+    setError(null);
+
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`https://api.nftport.xyz/v0/nfts/algorand/${process.env.NEXT_PUBLIC_ALGOVERSE_APP_ID}/${id}`);
+        const data = await response.json();
+
+        if (data.error) {
+          setError(data.error);
+          setLoading(false);
+          return;
+        }
+
+        setNftData(data.nft);
+        setLoading(false);
+      } catch (error) {
+        setError(error as string);
+        setLoading(false);
+      }
+    };
 const NFTDetail = () => {
   const { id } = useParams<{ id: string }>();
   // In a real app, we would fetch the NFT data based on the ID
-  
+
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
@@ -72,12 +100,12 @@ const NFTDetail = () => {
           {/* Left column - NFT image */}
           <div className="lg:w-1/2">
             <div className="bg-card border border-border/50 rounded-xl overflow-hidden relative group">
-              <img 
-                src={nftData.image} 
-                alt={nftData.title} 
+              <img
+                src={nftData.image}
+                alt={nftData.title}
                 className="w-full h-auto object-cover aspect-square"
               />
-              
+
               <div className="absolute top-4 right-4 flex gap-2">
                 <Button variant="secondary" size="icon" className="bg-card/80 backdrop-blur-sm">
                   <Heart className="h-4 w-4" />
@@ -89,7 +117,7 @@ const NFTDetail = () => {
                   <Flag className="h-4 w-4" />
                 </Button>
               </div>
-              
+
               <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
                 <div className="flex items-center gap-2">
                   <Badge variant="secondary" className="bg-black/50 backdrop-blur-sm">#{nftData.id}</Badge>
@@ -100,7 +128,7 @@ const NFTDetail = () => {
                 </div>
               </div>
             </div>
-            
+
             {/* NFT details for mobile view */}
             <div className="mt-6 block lg:hidden">
               <h1 className="text-2xl font-bold mb-2">{nftData.title}</h1>
@@ -116,7 +144,7 @@ const NFTDetail = () => {
               </div>
             </div>
           </div>
-          
+
           {/* Right column - NFT details */}
           <div className="lg:w-1/2">
             {/* NFT details for desktop */}
@@ -133,7 +161,7 @@ const NFTDetail = () => {
                 )}
               </div>
             </div>
-            
+
             {/* Creator & Owner */}
             <div className="flex gap-6 mb-6">
               <div>
@@ -151,7 +179,7 @@ const NFTDetail = () => {
                   )}
                 </Link>
               </div>
-              
+
               <div>
                 <p className="text-sm text-muted-foreground mb-2">Current Owner</p>
                 <Link to={`/artist/${nftData.owner.id}`} className="flex items-center gap-2">
@@ -168,7 +196,7 @@ const NFTDetail = () => {
                 </Link>
               </div>
             </div>
-            
+
             {/* Price information */}
             <Card className="mb-6">
               <CardContent className="p-4">
@@ -186,14 +214,14 @@ const NFTDetail = () => {
                     <span className="text-sm text-muted-foreground">Sale ends in 5 days</span>
                   </div>
                 </div>
-                
+
                 <div className="grid grid-cols-2 gap-4">
                   <Button className="w-full">Buy now</Button>
                   <Button variant="secondary" className="w-full">Make offer</Button>
                 </div>
               </CardContent>
             </Card>
-            
+
             {/* Tabs for description, properties, etc. */}
             <Tabs defaultValue="description">
               <TabsList className="grid grid-cols-3 mb-4">
@@ -201,10 +229,10 @@ const NFTDetail = () => {
                 <TabsTrigger value="properties">Properties</TabsTrigger>
                 <TabsTrigger value="history">History</TabsTrigger>
               </TabsList>
-              
+
               <TabsContent value="description" className="pt-2">
                 <p className="text-muted-foreground">{nftData.description}</p>
-                
+
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-6">
                   <div className="bg-secondary/30 rounded-lg p-3 text-center">
                     <p className="text-xs text-muted-foreground">Created</p>
@@ -224,7 +252,7 @@ const NFTDetail = () => {
                   </div>
                 </div>
               </TabsContent>
-              
+
               <TabsContent value="properties">
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
                   {nftData.attributes.map((attr, index) => (
@@ -235,7 +263,7 @@ const NFTDetail = () => {
                   ))}
                 </div>
               </TabsContent>
-              
+
               <TabsContent value="history">
                 <div className="space-y-4">
                   {nftData.history.map((item, index) => (
@@ -256,7 +284,7 @@ const NFTDetail = () => {
                 </div>
               </TabsContent>
             </Tabs>
-            
+
             {/* FAQs */}
             <div className="mt-8">
               <Accordion type="single" collapsible className="w-full">
@@ -282,7 +310,7 @@ const NFTDetail = () => {
             </div>
           </div>
         </div>
-        
+
         {/* More from this collection */}
         <div className="mt-16">
           <div className="flex justify-between items-center mb-6">
@@ -292,7 +320,7 @@ const NFTDetail = () => {
               <ChevronRight className="h-4 w-4 ml-1" />
             </Link>
           </div>
-          
+
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {similarNFTs.map((nft) => (
               <NFTCard
