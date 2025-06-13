@@ -11,9 +11,6 @@ export class Algoverse extends Contract {
   private getSum(a: uint64, b: uint64): uint64 {
     return a + b;
   }
-  private getDifference(a: uint64, b: uint64): uint64 {
-    return a >= b ? a - b : b - a;
-  }
 
   /**
    * Calculates the difference between two numbers
