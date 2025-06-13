@@ -123,6 +123,9 @@ export type AlgoverseArgs = {
   }
 }
 
+export type ABIReturnValue = Uint8Array | string
+
+export type ABIReturnType = ABIReturnValue | undefined
 /**
  * The return type for each method
  */
