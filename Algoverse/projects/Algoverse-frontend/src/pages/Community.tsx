@@ -16,7 +16,24 @@ const Community = () => {
       {/* Hero Section */}
       <div className="bg-card relative overflow-hidden border-b border-border">
         <div className="absolute inset-0 bg-gradient-to-br from-algo-primary/10 to-algo-accent/5 z-0"></div>
-
+        <div className="container mx-auto px-4 py-16 md:py-24 relative z-10">
+          <div className="max-w-2xl">
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">Join the AlgoVerse Community</h1>
+            <p className="text-xl text-muted-foreground mb-8">
+              Connect with fellow artists, collectors, and enthusiasts in the world's most innovative NFT marketplace on Algorand.
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <Button size="lg">
+                <Users className="mr-2 h-5 w-5" />
+                Join Discord
+              </Button>
+              <Button variant="secondary" size="lg">
+                <MessageSquare className="mr-2 h-5 w-5" />
+                Chat Forum
+              </Button>
+            </div>
+          </div>
+        </div>
 
         {/* Decorative elements */}
         <div className="absolute -bottom-16 -right-16 w-64 h-64 bg-algo-primary/20 rounded-full blur-3xl"></div>
