@@ -12,34 +12,17 @@ const Community = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      
+
       {/* Hero Section */}
       <div className="bg-card relative overflow-hidden border-b border-border">
         <div className="absolute inset-0 bg-gradient-to-br from-algo-primary/10 to-algo-accent/5 z-0"></div>
-        <div className="container mx-auto px-4 py-16 md:py-24 relative z-10">
-          <div className="max-w-2xl">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">Join the AlgoVerse Community</h1>
-            <p className="text-xl text-muted-foreground mb-8">
-              Connect with fellow artists, collectors, and enthusiasts in the world's most innovative NFT marketplace on Algorand.
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <Button size="lg">
-                <Users className="mr-2 h-5 w-5" />
-                Join Discord
-              </Button>
-              <Button variant="secondary" size="lg">
-                <MessageSquare className="mr-2 h-5 w-5" />
-                Chat Forum
-              </Button>
-            </div>
-          </div>
-        </div>
-        
+
+
         {/* Decorative elements */}
         <div className="absolute -bottom-16 -right-16 w-64 h-64 bg-algo-primary/20 rounded-full blur-3xl"></div>
         <div className="absolute -top-8 right-1/4 w-32 h-32 bg-algo-accent/10 rounded-full blur-2xl"></div>
       </div>
-      
+
       <main className="flex-1 container mx-auto px-4 py-12">
         {/* Community Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
@@ -49,21 +32,21 @@ const Community = () => {
               <p className="text-muted-foreground text-center">Community Members</p>
             </CardContent>
           </Card>
-          
+
           <Card className="bg-gradient-to-br from-card to-secondary border border-border/50">
             <CardContent className="p-6 flex flex-col items-center justify-center">
               <h3 className="text-3xl font-bold mb-1">12K+</h3>
               <p className="text-muted-foreground text-center">Artists & Creators</p>
             </CardContent>
           </Card>
-          
+
           <Card className="bg-gradient-to-br from-card to-secondary border border-border/50">
             <CardContent className="p-6 flex flex-col items-center justify-center">
               <h3 className="text-3xl font-bold mb-1">250K+</h3>
               <p className="text-muted-foreground text-center">NFTs Created</p>
             </CardContent>
           </Card>
-          
+
           <Card className="bg-gradient-to-br from-card to-secondary border border-border/50">
             <CardContent className="p-6 flex flex-col items-center justify-center">
               <h3 className="text-3xl font-bold mb-1">$48M+</h3>
@@ -71,10 +54,10 @@ const Community = () => {
             </CardContent>
           </Card>
         </div>
-        
+
         {/* Community Features */}
         <h2 className="text-3xl font-bold mb-8">Community Features</h2>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
           <Card className="card-hover">
             <CardHeader className="pb-0">
@@ -94,7 +77,7 @@ const Community = () => {
               </Button>
             </CardFooter>
           </Card>
-          
+
           <Card className="card-hover">
             <CardHeader className="pb-0">
               <div className="h-12 w-12 bg-algo-accent/20 rounded-lg flex items-center justify-center mb-4">
@@ -113,7 +96,7 @@ const Community = () => {
               </Button>
             </CardFooter>
           </Card>
-          
+
           <Card className="card-hover">
             <CardHeader className="pb-0">
               <div className="h-12 w-12 bg-purple-500/20 rounded-lg flex items-center justify-center mb-4">
@@ -133,17 +116,17 @@ const Community = () => {
             </CardFooter>
           </Card>
         </div>
-        
+
         {/* Latest Blog Posts */}
         <h2 className="text-3xl font-bold mb-8">Latest from Our Blog</h2>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           {[1, 2, 3].map((item) => (
             <Card key={item} className="overflow-hidden card-hover">
               <div className="h-48 bg-secondary overflow-hidden">
-                <img 
-                  src="/placeholder.svg" 
-                  alt="Blog post" 
+                <img
+                  src="/placeholder.svg"
+                  alt="Blog post"
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -174,10 +157,10 @@ const Community = () => {
             </Card>
           ))}
         </div>
-        
+
         {/* Community Partners */}
         <h2 className="text-3xl font-bold mb-8">Our Partners</h2>
-        
+
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
           {[1, 2, 3, 4].map((item) => (
             <Card key={item} className="bg-secondary/30 border-border/50 flex items-center justify-center p-6 h-24">
@@ -187,7 +170,7 @@ const Community = () => {
             </Card>
           ))}
         </div>
-        
+
         {/* CTA */}
         <Card className="bg-gradient-to-br from-algo-primary/20 to-algo-accent/10 border-border/50 mb-8">
           <CardContent className="p-8 md:p-12 text-center">
@@ -202,7 +185,7 @@ const Community = () => {
           </CardContent>
         </Card>
       </main>
-      
+
       <Footer />
     </div>
   );
