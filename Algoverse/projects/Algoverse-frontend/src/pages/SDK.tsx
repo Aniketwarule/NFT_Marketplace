@@ -24,14 +24,14 @@ async function mintNFT() {
     const nft = await sdk.nft.create({
       name: "My First NFT",
       description: "This is my first NFT on Algorand",
-      image: "ipfs://QmXxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxYour-IPFS-CID", 
+      image: "ipfs://QmXxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxYour-IPFS-CID",
       creator: "Your Algorand Address",
       properties: {
         artist: "Your Name",
         medium: "Digital",
       }
     });
-    
+
     console.log("NFT created successfully:", nft);
     return nft;
   } catch (error) {
@@ -47,7 +47,7 @@ async function listNFT(assetId, price) {
       price: price, // price in microAlgos
       seller: "Your Algorand Address"
     });
-    
+
     console.log("NFT listed successfully:", listing);
     return listing;
   } catch (error) {
@@ -62,7 +62,7 @@ async function buyNFT(listingId) {
       listingId: listingId,
       buyer: "Buyer's Algorand Address"
     });
-    
+
     console.log("NFT purchased successfully:", purchase);
     return purchase;
   } catch (error) {
@@ -184,6 +184,64 @@ const SDK = () => {
           </div>
         </section>
 
+        {/* SDK Installation Section */}
+        <section className="py-16 px-6 bg-card">
+          <div className="container mx-auto max-w-4xl">
+            <h2 className="text-3xl font-bold mb-8">Installation</h2>
+            <Card className="mb-8">
+              <CardContent className="pt-6">
+                <h3 className="text-xl font-semibold mb-4">Installation</h3>
+                <div className="bg-background p-4 rounded-md font-mono text-sm mb-6">
+                  <p className="mb-2">
+                    # Using npm<br />
+                    npm install @algoverse/sdk
+                  </p>
+                  <p>
+                    # Using yarn<br />
+                    yarn add @algoverse/sdk
+                  </p>
+                </div>
+                <h3 className="text-xl font-semibold mb-4">Requirements</h3>
+                <ul className="list-disc pl-6 space-y-2">
+                  <li>Node.js v14 or higher</li>
+                  <li>Algorand account (TestNet or MainNet)</li>
+                  <li>Algorand API key (from <a href="https://developer.purestake.io/" className="text-algo-accent hover:underline">PureStake</a> or <a href="https://www.algorand.com/technology/algorand-api-service" className="text-algo-accent hover:underline">Algorand API Service</a>)</li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            <h3 className="text-xl font-semibold mb-4">Environment Setup</h3>
+            <p className="mb-6">
+              For optimal development experience, we recommend using AlgoKit CLI for project initialization:
+            </p>
+            <div className="bg-background p-4 rounded-md font-mono text-sm mb-8">
+              <p>
+                # Install AlgoKit CLI<br />
+                pip install algokit<br /><br />
+
+                # Initialize a new project<br />
+                algokit init
+              </p>
+            </div>
+
+            <Card>
+              <CardHeader>
+                <h3 className="text-xl font-semibold">Basic Configuration</h3>
+              </CardHeader>
+              <CardContent>
+                <CodeBlock code={`
+// Initialize the SDK
+import { AlgoVerseSDK } from '@algoverse/sdk';
+
+// Configure the SDK with your credentials
+const sdk = new AlgoVerseSDK({
+  apiKey: 'your-api-key',
+  network: 'testnet', // or 'mainnet' for production
+  algodServer: 'https://testnet-algorand.api.purestake.io/ps2',
+  indexerServer: 'https://testnet-algorand.api.purestake.io/idx2',
+  port: '',
+});
+
         {/* Installation Section */}
         <section className="py-16 px-6 bg-card">
           <div className="container mx-auto max-w-4xl">
@@ -209,7 +267,7 @@ const SDK = () => {
                 </ul>
               </CardContent>
             </Card>
-            
+
             <h3 className="text-xl font-semibold mb-4">Environment Setup</h3>
             <p className="mb-6">
               For optimal development experience, we recommend using AlgoKit CLI for project initialization:
@@ -218,12 +276,12 @@ const SDK = () => {
               <p>
                 # Install AlgoKit CLI<br />
                 pip install algokit<br /><br />
-                
+
                 # Initialize a new project<br />
                 algokit init
               </p>
             </div>
-            
+
             <Card>
               <CardHeader>
                 <h3 className="text-xl font-semibold">Basic Configuration</h3>
@@ -254,7 +312,7 @@ const sdk = new AlgoVerseSDK({
             <p className="text-lg mb-8">
               Follow this step-by-step tutorial to create, list, and buy your first NFT on Algorand using the AlgoVerse SDK.
             </p>
-            
+
             <Tabs defaultValue="mint" className="mb-12">
               <TabsList className="grid w-full grid-cols-3">
                 <TabsTrigger value="mint">1. Mint an NFT</TabsTrigger>
@@ -283,7 +341,7 @@ const sdk = new AlgoVerseSDK({
                 <CodeBlock code={buyNFTCode} language="javascript" />
               </TabsContent>
             </Tabs>
-            
+
             <div className="bg-card-gradient p-6 rounded-lg">
               <h3 className="text-xl font-semibold mb-2">What's Happening Under the Hood?</h3>
               <p className="mb-4">
@@ -306,7 +364,7 @@ const sdk = new AlgoVerseSDK({
         <section className="py-16 px-6 bg-card">
           <div className="container mx-auto max-w-4xl">
             <h2 className="text-3xl font-bold mb-8">Core Concepts</h2>
-            
+
             <div className="grid md:grid-cols-2 gap-8 mb-12">
               <Card className="bg-secondary/50 border-border/50">
                 <CardHeader>
@@ -329,7 +387,7 @@ const sdk = new AlgoVerseSDK({
                   </Button>
                 </CardFooter>
               </Card>
-              
+
               <Card className="bg-secondary/50 border-border/50">
                 <CardHeader>
                   <h3 className="text-xl font-semibold">Atomic Transfers</h3>
@@ -352,7 +410,7 @@ const sdk = new AlgoVerseSDK({
                 </CardFooter>
               </Card>
             </div>
-            
+
             <div className="grid md:grid-cols-2 gap-8">
               <Card className="bg-secondary/50 border-border/50">
                 <CardHeader>
@@ -375,7 +433,7 @@ const sdk = new AlgoVerseSDK({
                   </Button>
                 </CardFooter>
               </Card>
-              
+
               <Card className="bg-secondary/50 border-border/50">
                 <CardHeader>
                   <h3 className="text-xl font-semibold">NFT Metadata Standards</h3>
@@ -408,7 +466,7 @@ const sdk = new AlgoVerseSDK({
             <p className="text-lg mb-8">
               Connect your application to Algorand wallets to enable users to seamlessly interact with your NFT marketplace.
             </p>
-            
+
             <Card className="mb-10">
               <CardHeader>
                 <h3 className="text-xl font-semibold">Connecting to Pera Wallet</h3>
@@ -428,7 +486,7 @@ const sdk = new AlgoVerseSDK({
                 </Button>
               </CardFooter>
             </Card>
-            
+
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
               <Card className="text-center p-6">
                 <img src="/placeholder.svg" alt="Pera Wallet" className="w-16 h-16 mx-auto mb-4" />
@@ -440,7 +498,7 @@ const sdk = new AlgoVerseSDK({
                   </a>
                 </Button>
               </Card>
-              
+
               <Card className="text-center p-6">
                 <img src="/placeholder.svg" alt="MyAlgo Wallet" className="w-16 h-16 mx-auto mb-4" />
                 <h4 className="font-semibold text-lg mb-2">MyAlgo Wallet</h4>
@@ -451,7 +509,7 @@ const sdk = new AlgoVerseSDK({
                   </a>
                 </Button>
               </Card>
-              
+
               <Card className="text-center p-6">
                 <img src="/placeholder.svg" alt="Defly Wallet" className="w-16 h-16 mx-auto mb-4" />
                 <h4 className="font-semibold text-lg mb-2">Defly Wallet</h4>
