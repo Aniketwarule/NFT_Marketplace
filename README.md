@@ -55,4 +55,4 @@ Encourages wider adoption through well-documented APIs.
 By leveraging Algorand’s fast, low-cost, and secure blockchain, our NFT marketplace enables seamless trading, simplifies integration, and ensures scalability. With developer-friendly APIs and a robust smart contract framework, we provide a cutting-edge solution for digital asset management.
 8. References
 Algorand Developer Docs: https://developer.algorand.org/
-Hackathon Details: https://algobharat.in/hack-series//
+Hackathon Details: https://algobharat.in/hack-series/
