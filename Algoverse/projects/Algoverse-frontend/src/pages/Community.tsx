@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardFooter } from "@/components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Badge from "@/components/Badge";
 import { Link } from "react-router-dom";
-import { ArrowRight, Users, MessageSquare, Book, Calendar } from "lucide-react";
+import { ArrowRight, Users, MessageSquare, Book, Calendar, Palette, Image, BarChart } from "lucide-react";
 
 const Community = () => {
   return (
@@ -44,33 +44,24 @@ const Community = () => {
       <main className="flex-1 container mx-auto px-4 py-12">
         {/* Community Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
-          <Card className="bg-gradient-to-br from-card to-secondary border border-border/50">
-            <CardContent className="p-6 flex flex-col items-center justify-center">
-              <h3 className="text-3xl font-bold mb-1">35K+</h3>
-              <p className="text-muted-foreground text-center">Community Members</p>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-gradient-to-br from-card to-secondary border border-border/50">
-            <CardContent className="p-6 flex flex-col items-center justify-center">
-              <h3 className="text-3xl font-bold mb-1">12K+</h3>
-              <p className="text-muted-foreground text-center">Artists & Creators</p>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-gradient-to-br from-card to-secondary border border-border/50">
-            <CardContent className="p-6 flex flex-col items-center justify-center">
-              <h3 className="text-3xl font-bold mb-1">250K+</h3>
-              <p className="text-muted-foreground text-center">NFTs Created</p>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-gradient-to-br from-card to-secondary border border-border/50">
-            <CardContent className="p-6 flex flex-col items-center justify-center">
-              <h3 className="text-3xl font-bold mb-1">$48M+</h3>
-              <p className="text-muted-foreground text-center">Trading Volume</p>
-            </CardContent>
-          </Card>
+          {[
+            { number: "35K+", label: "Community Members", icon: Users },
+            { number: "12K+", label: "Artists & Creators", icon: Palette },
+            { number: "250K+", label: "NFTs Created", icon: Image },
+            { number: "$48M+", label: "Trading Volume", icon: BarChart },
+          ].map((stat, index) => (
+            <Card key={index} className="bg-gradient-to-br from-card/50 to-card border-border/50 relative overflow-hidden group">
+              <CardContent className="p-6">
+                <div className="absolute top-0 right-0 p-3 opacity-20 group-hover:opacity-40 transition-opacity">
+                  <stat.icon className="h-12 w-12" />
+                </div>
+                <h3 className="text-4xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-algo-primary to-algo-accent">
+                  {stat.number}
+                </h3>
+                <p className="text-muted-foreground">{stat.label}</p>
+              </CardContent>
+            </Card>
+          ))}
         </div>
 
         {/* Community Features */}
