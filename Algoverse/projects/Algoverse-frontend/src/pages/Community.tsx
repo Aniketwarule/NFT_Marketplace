@@ -181,15 +181,23 @@ const Community = () => {
         </div>
 
         {/* CTA */}
-        <Card className="bg-gradient-to-br from-algo-primary/20 to-algo-accent/10 border-border/50 mb-8">
-          <CardContent className="p-8 md:p-12 text-center">
-            <h2 className="text-3xl font-bold mb-4">Ready to Join Our Community?</h2>
-            <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+        <Card className="relative overflow-hidden border-none">
+          <div className="absolute inset-0 bg-gradient-to-br from-algo-primary/30 via-algo-accent/20 to-purple-500/20" />
+          <div className="absolute inset-0 bg-grid-white/[0.02]" />
+          <CardContent className="relative p-8 md:p-12 text-center">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-white to-white/80">
+              Ready to Join Our Community?
+            </h2>
+            <p className="text-xl text-white/80 mb-8 max-w-2xl mx-auto">
               Be part of the next generation of digital creators and collectors on the Algorand blockchain.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <Button size="lg" className="btn-glow">Create Your Account</Button>
-              <Button variant="secondary" size="lg">Learn More</Button>
+              <Button size="lg" className="bg-white text-algo-primary hover:bg-white/90">
+                Create Your Account
+              </Button>
+              <Button variant="outline" size="lg" className="border-white/30 text-white hover:bg-white/10">
+                Learn More
+              </Button>
             </div>
           </CardContent>
         </Card>
