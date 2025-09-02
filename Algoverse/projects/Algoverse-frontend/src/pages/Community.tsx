@@ -15,29 +15,30 @@ const Community = () => {
 
       {/* Hero Section */}
       <div className="bg-card relative overflow-hidden border-b border-border">
-        <div className="absolute inset-0 bg-gradient-to-br from-algo-primary/10 to-algo-accent/5 z-0"></div>
-        <div className="container mx-auto px-4 py-16 md:py-24 relative z-10">
-          <div className="max-w-2xl">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">Join the AlgoVerse Community</h1>
-            <p className="text-xl text-muted-foreground mb-8">
+        <div className="absolute inset-0 bg-gradient-to-br from-algo-primary/20 to-algo-accent/10 z-0">
+          <div className="absolute inset-0 bg-grid-white/[0.02]" />
+        </div>
+        <div className="container mx-auto px-4 py-20 md:py-32 relative z-10">
+          <div className="max-w-3xl">
+            <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-algo-primary to-algo-accent">
+              Join the AlgoVerse Community
+            </h1>
+            <p className="text-xl md:text-2xl text-muted-foreground mb-10 leading-relaxed">
               Connect with fellow artists, collectors, and enthusiasts in the world's most innovative NFT marketplace on Algorand.
             </p>
             <div className="flex flex-wrap gap-4">
-              <Button size="lg">
+              <Button size="lg" className="bg-algo-primary hover:bg-algo-primary/90">
                 <Users className="mr-2 h-5 w-5" />
                 Join Discord
+                <span className="ml-2 bg-black/20 px-2 py-0.5 rounded-full text-sm">35K+</span>
               </Button>
-              <Button variant="secondary" size="lg">
+              <Button variant="outline" size="lg" className="border-algo-accent/20 hover:bg-algo-accent/10">
                 <MessageSquare className="mr-2 h-5 w-5" />
                 Chat Forum
               </Button>
             </div>
           </div>
         </div>
-
-        {/* Decorative elements */}
-        <div className="absolute -bottom-16 -right-16 w-64 h-64 bg-algo-primary/20 rounded-full blur-3xl"></div>
-        <div className="absolute -top-8 right-1/4 w-32 h-32 bg-algo-accent/10 rounded-full blur-2xl"></div>
       </div>
 
       <main className="flex-1 container mx-auto px-4 py-12">
