@@ -68,7 +68,7 @@ const Community = () => {
         <h2 className="text-3xl font-bold mb-8">Community Features</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-          <Card className="card-hover">
+          <Card className="card-hover transition-all duration-300 hover:shadow-lg hover:shadow-algo-primary/5 floating-animation">
             <CardHeader className="pb-0">
               <div className="h-12 w-12 bg-algo-primary/20 rounded-lg flex items-center justify-center mb-4">
                 <MessageSquare className="h-6 w-6 text-algo-primary" />
@@ -87,7 +87,7 @@ const Community = () => {
             </CardFooter>
           </Card>
 
-          <Card className="card-hover">
+          <Card className="card-hover transition-all duration-300 hover:shadow-lg hover:shadow-algo-primary/5 floating-animation">
             <CardHeader className="pb-0">
               <div className="h-12 w-12 bg-algo-accent/20 rounded-lg flex items-center justify-center mb-4">
                 <Calendar className="h-6 w-6 text-algo-accent" />
@@ -106,7 +106,7 @@ const Community = () => {
             </CardFooter>
           </Card>
 
-          <Card className="card-hover">
+          <Card className="card-hover transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/5 floating-animation">
             <CardHeader className="pb-0">
               <div className="h-12 w-12 bg-purple-500/20 rounded-lg flex items-center justify-center mb-4">
                 <Book className="h-6 w-6 text-purple-500" />
