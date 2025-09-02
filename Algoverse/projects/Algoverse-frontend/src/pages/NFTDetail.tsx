@@ -347,18 +347,22 @@ const NFTDetail: NextPage = () => {
 
 export default NFTDetail;
 
-.floating-animation {
-  animation: floating 3s ease-in-out infinite;
-}
-
-@keyframes floating {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-  100% { transform: translateY(0px); }
-}
-
-.bg-grid {
-  background-size: 50px 50px;
-  background-image: linear-gradient(to right, rgba(255,255,255,.05) 1px, transparent 1px),
-                    linear-gradient(to bottom, rgba(255,255,255,.05) 1px, transparent 1px);
-}
+module.exports = {
+  theme: {
+    extend: {
+      colors: {
+        'algo-primary': '#00C4CC',
+        'algo-accent': '#7B61FF',
+      },
+      animation: {
+        'float': 'floating 3s ease-in-out infinite',
+      },
+      keyframes: {
+        floating: {
+          '0%, 100%': { transform: 'translateY(0px)' },
+          '50%': { transform: 'translateY(-10px)' },
+        }
+      }
+    },
+  },
+};
