@@ -1,15 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import NFTCard from "@/components/NFTCard";
 import { useParams, Link } from "react-router-dom";
-import { Heart, Share2, Flag, ExternalLink, Clock, History, ChevronRight } from "lucide-react";
+import { Heart, Share2, Flag, ExternalLink, Clock, History, ChevronRight, Users, MessageSquare, Palette, Image, BarChart, ArrowRight } from "lucide-react";
 
 // Mock NFT data
 const nftData = {
@@ -88,9 +88,12 @@ const NFTDetail: NextPage = () => {
         setLoading(false);
       }
     };
-const NFTDetail = () => {
-  const { id } = useParams<{ id: string }>();
-  // In a real app, we would fetch the NFT data based on the ID
+
+    fetchData();
+  }, [id]);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -343,3 +346,19 @@ const NFTDetail = () => {
 };
 
 export default NFTDetail;
+
+.floating-animation {
+  animation: floating 3s ease-in-out infinite;
+}
+
+@keyframes floating {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.bg-grid {
+  background-size: 50px 50px;
+  background-image: linear-gradient(to right, rgba(255,255,255,.05) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(255,255,255,.05) 1px, transparent 1px);
+}
