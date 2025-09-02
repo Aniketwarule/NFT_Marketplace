@@ -479,3 +479,24 @@ export default Explore;
 .card-hover:hover {
 	transform: translateY(-5px);
 }
+
+module.exports = {
+  theme: {
+    extend: {
+      animation: {
+        'grid': 'grid 20s linear infinite',
+        'gradient': 'gradient 8s linear infinite',
+      },
+      keyframes: {
+        grid: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-20px)' },
+        },
+        gradient: {
+          '0%, 100%': { backgroundPosition: '0% 50%' },
+          '50%': { backgroundPosition: '100% 50%' },
+        },
+      },
+    },
+  },
+};
