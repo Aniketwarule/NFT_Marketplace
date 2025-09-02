@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { Badge } from "@/components/ui/badge";
 import NFTCard from "@/components/NFTCard";
-import { Search, Filter, Grid3X3, List } from "lucide-react";
+import { Search, Filter, Grid3X3, List, Users, MessageSquare, BarChart, ArrowRight, Palette, Image } from "lucide-react";
 
 // Sample NFT data
 const nftItems = [
@@ -374,6 +374,85 @@ const Explore: NextPage = () => {
 			</div>
 		);
 	};
+
+const Community = () => {
+	return (
+		<div className="min-h-screen flex flex-col">
+			<Header />
+
+			{/* Hero Section */}
+			<div className="bg-card relative overflow-hidden border-b border-border">
+				<div className="absolute inset-0 bg-gradient-to-br from-algo-primary/20 to-algo-accent/10 z-0">
+					<div className="absolute inset-0 bg-grid-white/[0.02] animate-grid" />
+				</div>
+				<div className="container mx-auto px-4 py-20 md:py-32 relative z-10">
+					<div className="max-w-3xl">
+						<h1 className="text-5xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-algo-primary to-algo-accent animate-gradient">
+							Join the AlgoVerse Community
+						</h1>
+						<p className="text-xl md:text-2xl text-muted-foreground mb-10 leading-relaxed">
+							Connect with fellow artists, collectors, and enthusiasts in the
+							world's most innovative NFT marketplace on Algorand.
+						</p>
+						<div className="flex flex-wrap gap-4">
+							<Button
+								size="lg"
+								className="bg-algo-primary hover:bg-algo-primary/90 group"
+							>
+								<Users className="mr-2 h-5 w-5" />
+								Join Discord
+								<span className="ml-2 bg-black/20 px-2 py-0.5 rounded-full text-sm">
+									35K+
+								</span>
+								<ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+							</Button>
+							<Button
+								variant="outline"
+								size="lg"
+								className="border-algo-accent/20 hover:bg-algo-accent/10"
+							>
+								<MessageSquare className="mr-2 h-5 w-5" />
+								Chat Forum
+							</Button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<main className="flex-1 container mx-auto px-4 py-12">
+				{/* Community Stats */}
+				<div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
+					{[
+						{ number: "35K+", label: "Community Members", icon: Users },
+						{ number: "12K+", label: "Artists & Creators", icon: Palette },
+						{ number: "250K+", label: "NFTs Created", icon: Image },
+						{ number: "$48M+", label: "Trading Volume", icon: BarChart },
+					].map((stat, index) => (
+						<Card
+							key={index}
+							className="bg-gradient-to-br from-card/50 to-card border-border/50 relative overflow-hidden group hover:border-algo-primary/50 transition-colors"
+						>
+							<CardContent className="p-6">
+								<div className="absolute top-0 right-0 p-3 opacity-20 group-hover:opacity-40 transition-opacity">
+									<stat.icon className="h-12 w-12" />
+								</div>
+								<h3 className="text-4xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-algo-primary to-algo-accent">
+									{stat.number}
+								</h3>
+								<p className="text-muted-foreground">{stat.label}</p>
+							</CardContent>
+						</Card>
+					))}
+				</div>
+
+				{/* Rest of your existing components with added animations */}
+				{/* ...existing code... */}
+			</main>
+
+			<Footer />
+		</div>
+	);
+};
 
 export default Explore;
 
